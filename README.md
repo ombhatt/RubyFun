@@ -1,5 +1,6 @@
 RubyFun
 =======
+{code}
 Using your favorite REST client library (e.g. https://github.com/technoweenie/faraday) write a Zendesk API client that:
 
 Creates a user
@@ -109,3 +110,5 @@ posts = [
 blog = Blog.new(:posts => posts, :header => "my blog", :bottom => "Copyright Wobble (2012)", :renderer => Proc.new{|post| "<p>#{post[:title].upcase}</p>" })
 
 puts blog.render
+
+{code}
