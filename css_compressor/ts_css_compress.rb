@@ -7,23 +7,13 @@ require 'css_compress'
 class TestZDClient < Test::Unit::TestCase
 
     def test_css_compress_create_without_input
-        begin
-            css_compressor = CSSCompressor.new("nofile.css")
-            assert(false, "Expected error")
-        rescue => e
-            assert(true, "Expected error")
-        end
+        assert_raise(Errno::ENOENT) { css_compressor = CSSCompressor.new("nofile.css") }
     end
 
     def test_css_compress_create_with_input
-        begin
-            css_compressor = CSSCompressor.new("valid.css")
-            assert(true, "Expected error")
-            css_compressor.compress_to("valid_minify.css")
-            check_file_compressed("valid_minify.css")
-        rescue => e
-            assert(false, "Expected error")
-        end
+        css_compressor = CSSCompressor.new("valid.css")
+        css_compressor.compress_to("valid_minify.css")
+        check_file_compressed("valid_minify.css")
     end
 
 

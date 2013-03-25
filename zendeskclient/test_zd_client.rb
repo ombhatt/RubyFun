@@ -22,12 +22,7 @@ class TestZDClient < Test::Unit::TestCase
         assert_not_nil(new_user)
         assert_equal("John Smith", new_user.name)
         assert_equal("jon@smith.com",new_user.email)
-        begin
-            new_user = client.create_user('John Smith', 'jon@smith.com')
-            assert(false, "Able to create same user twice")
-        rescue => e
-            assert(true, "Expecting RuntimeException")
-        end
+        assert_raise (NameError) { new_user = client.create_user('John Smith', 'jon@smith.com') }
 
         #clean up
         delete_url = "https://omtestapi.zendesk.com/api/v2/users/#{new_user.userid}.json"
@@ -55,12 +50,7 @@ class TestZDClient < Test::Unit::TestCase
     end
 
     def test_try_creating_empty_user
-        begin
-            new_user = @client.create_user('')
-            assert(false, "Able to create user without name")
-        rescue => e
-            assert(true,"Expecting RuntimeException")
-        end
+        assert_raise (RuntimeError) { new_user = @client.create_user('') }
     end
 
 end
